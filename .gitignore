@@ -1,3 +1,14 @@
+#
+# Project-speciifc
+#
+sources
+templates
+schemes
+
+#
+# Elixir-specific
+#
+
 # The directory Mix will write compiled artifacts to.
 /_build
 

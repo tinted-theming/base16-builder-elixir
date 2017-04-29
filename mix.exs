@@ -33,7 +33,8 @@ defmodule Base16Builder.Mixfile do
   # Type "mix help deps" for more examples and options
   defp deps do
     [
-      {:yaml_elixir, "~> 1.3.0"}
+      {:yaml_elixir, "~> 1.3.0"},
+      {:git_cli, "~> 0.2"}
     ]
   end
 end

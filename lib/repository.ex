@@ -18,17 +18,23 @@ defmodule Repository do
   Clones a git repository at `path/name` or pulls it if it exists.
   """
   def update(path, name, url) do
-     repo_path = "#{path}/#{name}"
+    repo_path = "#{path}/#{name}"
 
-     if File.exists?(repo_path) do
-       repo = Git.new(repo_path)
-       Git.pull(repo)
+    git_task = Task.async fn() ->
 
-     else
-       repo = Git.clone([url, repo_path])
-     end
+      case File.exists?(repo_path) do
+        true ->
+          repo = Git.new(repo_path)
+          Git.pull(repo)
+          repo
 
-     repo
+        false ->
+          {:ok, repo} = Git.clone([url, repo_path])
+          repo
+      end
+    end
+
+    Task.await(git_task)
   end
 
   defp repo_url_from_sources_yaml(key) do

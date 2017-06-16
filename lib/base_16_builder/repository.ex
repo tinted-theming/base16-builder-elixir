@@ -7,7 +7,14 @@ defmodule Base16Builder.Repository do
 
   @sources_filename "sources.yaml"
   @sources_dir_name "sources"
+  @task_timeout 30000
 
+
+  def init do
+    init_sources_repos()
+    init_templates()
+    init_schemes()
+  end
 
   @doc """
   Attempts to pull or clone Base16 templates and schemes repositories.
@@ -19,10 +26,48 @@ defmodule Base16Builder.Repository do
      ]
   end
 
+  def init_templates do
+    path = "sources/templates/list.yaml"
+
+    case File.exists?(path) do
+      true ->
+        repos_data = YamlElixir.read_from_file(path)
+
+        for {k, v} <- repos_data do
+          update(%Repository{
+            path: "templates",
+            name: k,
+            url: v
+          })
+        end
+      false ->
+        {:error, :enoent}
+    end
+  end
+
+  def init_schemes do
+    path = "sources/schemes/list.yaml"
+
+    case File.exists?(path) do
+      true ->
+        repos_data = YamlElixir.read_from_file(path)
+
+        for {k, v} <- repos_data do
+          update(%Repository{
+            path: "schemes",
+            name: k,
+            url: v
+          })
+        end
+      false ->
+        {:error, :enoent}
+    end
+  end
+
   @doc """
   Clones a git repository at `path/name` or pulls it if it exists.
   """
-  def update(%Repository{} = repo) do
+  defp update(%Repository{} = repo) do
     repo_path = "#{repo.path}/#{repo.name}"
 
     git_task = Task.async fn() ->
@@ -45,7 +90,7 @@ defmodule Base16Builder.Repository do
       end
     end
 
-    git_repo = Task.await(git_task)
+    git_repo = Task.await(git_task, @task_timeout)
 
     if git_repo == nil do
       {:error, "Unknown error"}
@@ -56,7 +101,7 @@ defmodule Base16Builder.Repository do
   end
 
   defp repo_url_from_sources_yaml(key) do
-    yaml = YamlElixir.read_from_file(@sources_filename, atoms: true)
+    yaml = YamlElixir.read_from_file(@sources_filename)
     url = yaml[key]
 
     if url != nil do

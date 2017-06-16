@@ -1,7 +1,10 @@
-defmodule Repository do
+defmodule Base16Builder.Repository do
   @moduledoc """
   Represents a Base 16 repository (either a template or scheme repository)
   """
+  alias Base16Builder.Repository
+  defstruct path: "", name: "", url: "", git_repo: %Git.Repository{}
+
   @sources_filename "sources.yaml"
   @sources_dir_name "sources"
 
@@ -10,31 +13,46 @@ defmodule Repository do
   Attempts to pull or clone Base16 templates and schemes repositories.
   """
   def init_sources_repos do
-     init_sources_repo("templates")
-     init_sources_repo("schemes")
+     [
+       init_sources_repo("templates"),
+       init_sources_repo("schemes")
+     ]
   end
 
   @doc """
   Clones a git repository at `path/name` or pulls it if it exists.
   """
-  def update(path, name, url) do
-    repo_path = "#{path}/#{name}"
+  def update(%Repository{} = repo) do
+    repo_path = "#{repo.path}/#{repo.name}"
 
     git_task = Task.async fn() ->
-
       case File.exists?(repo_path) do
         true ->
-          repo = Git.new(repo_path)
-          Git.pull(repo)
-          repo
+          existing_git_repo = Git.new(repo_path)
+
+          case Git.pull(existing_git_repo) do
+            {:ok, existing} -> existing
+            {:error, _} -> nil
+          end
 
         false ->
-          {:ok, repo} = Git.clone([url, repo_path])
-          repo
+          cloned_git_repo = case Git.clone([repo.url, repo_path]) do
+            {:ok, cloned} -> cloned
+            {:error, _} -> nil
+          end
+
+          cloned_git_repo
       end
     end
 
-    Task.await(git_task)
+    git_repo = Task.await(git_task)
+
+    if git_repo == nil do
+      {:error, "Unknown error"}
+    else
+      Map.put(repo, :git_repo, git_repo)
+      {:ok, repo}
+    end
   end
 
   defp repo_url_from_sources_yaml(key) do
@@ -50,11 +68,11 @@ defmodule Repository do
 
   defp init_sources_repo(key) do
     with {:ok, url} <- repo_url_from_sources_yaml(key) do
-      update(
-        @sources_dir_name,
-        key,
-        url
-      )
+      update(%Repository{
+        path: @sources_dir_name,
+        name: key,
+        url: url
+      })
     end
   end
 end

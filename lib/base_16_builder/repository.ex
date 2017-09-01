@@ -61,7 +61,7 @@ defmodule Base16Builder.Repository do
           end
 
         false ->
-          cloned_git_repo = case Git.clone([repo.url, repo_path]) do
+          cloned_git_repo = case Git.clone([repo.url, repo_path, "--depth", "1"]) do
             {:ok, cloned} -> cloned
             {:error, _} -> nil
           end

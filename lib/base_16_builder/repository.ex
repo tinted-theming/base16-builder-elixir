@@ -26,42 +26,22 @@ defmodule Base16Builder.Repository do
      ]
   end
 
+  @doc """
+  Attempts to pull or clone every template repo listed in the templates
+  YAML file.
+  """
   def init_templates do
-    path = "sources/templates/list.yaml"
-
-    case File.exists?(path) do
-      true ->
-        repos_data = YamlElixir.read_from_file(path)
-
-        for {k, v} <- repos_data do
-          update(%Repository{
-            path: "templates",
-            name: k,
-            url: v
-          })
-        end
-      false ->
-        {:error, :enoent}
-    end
+    repos_from_yaml_list("sources/templates/list.yaml",
+                         "templates")
   end
 
+  @doc """
+  Attempts to pull or clone every scheme repo listed in the schemes
+  YAML file.
+  """
   def init_schemes do
-    path = "sources/schemes/list.yaml"
-
-    case File.exists?(path) do
-      true ->
-        repos_data = YamlElixir.read_from_file(path)
-
-        for {k, v} <- repos_data do
-          update(%Repository{
-            path: "schemes",
-            name: k,
-            url: v
-          })
-        end
-      false ->
-        {:error, :enoent}
-    end
+    repos_from_yaml_list("sources/schemes/list.yaml",
+                         "schemes")
   end
 
   @doc """
@@ -108,6 +88,27 @@ defmodule Base16Builder.Repository do
       {:ok, url}
     else
       {:error, "Couldn't parse URL from YAML file"}
+    end
+  end
+
+  @doc """
+    Reads a YAML list (either templates or schemes) and initialized
+    repos based on the content.
+  """
+  defp repos_from_yaml_list(yaml_path, repo_path) do
+    case File.exists?(yaml_path) do
+      true ->
+        repos_data = YamlElixir.read_from_file(yaml_path)
+
+        for {k, v} <- repos_data do
+          update(%Repository{
+            path: repo_path,
+            name: k,
+            url: v
+          })
+        end
+      false ->
+        {:error, :enoent}
     end
   end
 

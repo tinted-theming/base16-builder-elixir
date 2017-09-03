@@ -86,8 +86,8 @@ defmodule Base16Builder.Repository do
   end
 
   @doc """
-    Reads a YAML list (either templates or schemes) and initialized
-    repos based on the content.
+    Reads a YAML list (either templates or schemes) and initializes
+    repos asynchronously based on the content.
   """
   defp repos_from_yaml_list(yaml_path, repo_path) do
     case File.exists?(yaml_path) do

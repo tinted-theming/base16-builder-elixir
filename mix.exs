@@ -34,7 +34,8 @@ defmodule Base16Builder.Mixfile do
   defp deps do
     [
       {:yaml_elixir, "~> 1.3.0"},
-      {:git_cli, "~> 0.2"}
+      {:git_cli, "~> 0.2"},
+      {:exfmt, [github: "lpil/exfmt"]}
     ]
   end
 end

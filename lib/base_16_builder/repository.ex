@@ -50,27 +50,21 @@ defmodule Base16Builder.Repository do
   defp update(%Repository{} = repo) do
     repo_path = "#{repo.path}/#{repo.name}"
 
-    git_task = Task.async fn() ->
-      case File.exists?(repo_path) do
-        true ->
-          existing_git_repo = Git.new(repo_path)
+    git_repo = case File.exists?(repo_path) do
+      true ->
+        existing_repo = Git.new(repo_path)
 
-          case Git.pull(existing_git_repo) do
-            {:ok, existing} -> existing
-            {:error, _} -> nil
-          end
+        case Git.pull(existing_repo) do
+          {:ok, existing} -> existing
+          {:error, _} -> nil
+        end
 
-        false ->
-          cloned_git_repo = case Git.clone([repo.url, repo_path, "--depth", "1"]) do
-            {:ok, cloned} -> cloned
-            {:error, _} -> nil
-          end
-
-          cloned_git_repo
-      end
+      false ->
+        case Git.clone([repo.url, repo_path, "--depth", "1"]) do
+          {:ok, cloned} -> cloned
+          {:error, _} -> nil
+        end
     end
-
-    git_repo = Task.await(git_task, @task_timeout)
 
     if git_repo == nil do
       {:error, "Unknown error"}
@@ -100,13 +94,19 @@ defmodule Base16Builder.Repository do
       true ->
         repos_data = YamlElixir.read_from_file(yaml_path)
 
-        for {k, v} <- repos_data do
-          update(%Repository{
-            path: repo_path,
-            name: k,
-            url: v
-          })
-        end
+        Enum.map(repos_data, fn(repo) ->
+          name = elem(repo, 0)
+          url = elem(repo, 1)
+
+          Task.async(fn ->
+            update(%Repository{
+              path: repo_path,
+              name: name,
+              url: url
+            })
+          end)
+        end)
+        |> Enum.map(fn task -> Task.await(task) end)
       false ->
         {:error, :enoent}
     end

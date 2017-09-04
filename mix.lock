@@ -1,7 +1,7 @@
 %{"color_utils": {:hex, :color_utils, "0.2.0", "bbcf48e74e1da14bfc7b513a44fe518b5a7062d29e1ed3fd7cf0704e2f422a2f", [], [], "hexpm"},
   "exfmt": {:git, "https://github.com/lpil/exfmt.git", "c4b6abe01b8579e07480c32784c12ecf26f3e746", []},
   "git_cli": {:hex, :git_cli, "0.2.3", "052f0ecfc43d86fb4a750741540bdb00ac63354c6588024555be62c8ea1eff33", [:mix], [], "hexpm"},
-  "mustache": {:hex, :mustache, "0.0.2", "870fbef411c47d17df06a57b8b3f69e26eb110cba0177c34e273db5d94369d9b", [], [], "hexpm"},
+  "mustache": {:hex, :mustache, "0.3.1", "4c6ee79b13aae954035fe31b83c94480ddc7b536d09c44d4c65e61a9ead38d6b", [:mix], [], "hexpm"},
   "slugger": {:hex, :slugger, "0.2.0", "7c609e6eee6dbb44e7b0db07982932356cab476f00fc8d73320cdc50d7efa18e", [], [], "hexpm"},
   "yamerl": {:hex, :yamerl, "0.3.3", "df48fe3e6aeaca05ec6c4b35418aa7c77258d0d1c32d578a2e12a14751c10d42", [:rebar3], [], "hexpm"},
   "yaml_elixir": {:hex, :yaml_elixir, "1.3.0", "5b945c235f0bc9d49c60927834576952c9e106afbc1dfa76ffcf615d7615e35f", [:mix], [{:yamerl, "~> 0.3.2", [hex: :yamerl, repo: "hexpm", optional: false]}], "hexpm"}}

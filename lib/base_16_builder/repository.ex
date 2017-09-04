@@ -7,8 +7,6 @@ defmodule Base16Builder.Repository do
 
   @sources_filename "sources.yaml"
   @sources_dir_name "sources"
-  @task_timeout 30000
-
 
   def init do
     init_sources_repos()

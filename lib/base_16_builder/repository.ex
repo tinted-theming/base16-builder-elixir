@@ -8,6 +8,11 @@ defmodule Base16Builder.Repository do
   @sources_filename "sources.yaml"
   @sources_dir_name "sources"
 
+  @doc """
+  Initializes sources, templates, and schemes repositories by git cloning
+  non-existing repos, or pulling existing ones. For more information see:
+  https://github.com/chriskempson/base16/blob/master/builder.md
+  """
   def init do
     init_sources_repos()
     init_templates()

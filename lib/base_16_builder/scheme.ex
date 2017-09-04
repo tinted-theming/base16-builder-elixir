@@ -25,6 +25,10 @@ defmodule Base16Builder.Scheme do
     base0F
   )
 
+  @doc """
+  Returns a list of scheme structs obtained by looking at
+  "schemes/**/*.yaml"
+  """
   def load_schemes do
     Path.wildcard("schemes/**/*.yaml")
     |> Enum.map(&from_file(&1))

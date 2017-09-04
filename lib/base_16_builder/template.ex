@@ -5,6 +5,10 @@ defmodule Base16Builder.Template do
   defstruct config_file_path: "",
             directory: ""
 
+  @doc """
+  Returns a list of template structs obtained by looking at
+  "templates/**/templates"
+  """
   def load_templates do
     Path.wildcard("templates/**/templates")
     |> Enum.map(fn(path) ->
@@ -15,6 +19,11 @@ defmodule Base16Builder.Template do
     end)
   end
 
+  @doc """
+  Reads the config YAML file in the template then iterates over the result and
+  renders a Mustache template using the scheme, for each entry defined in the
+  config file.
+  """
   def render(template = %Template{}, scheme = %Scheme{}) do
     config = YamlElixir.read_from_file(template.config_file_path)
 

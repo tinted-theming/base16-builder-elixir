@@ -1,6 +1,21 @@
 defmodule Base16Builder.Template do
   def render(scheme = %Base16Builder.Scheme{}) do
     nil
+  alias Base16Builder.Template
+  alias Base16Builder.Scheme
+
+  defstruct config_file_path: "",
+            directory: ""
+
+  def load_templates do
+    Path.wildcard("templates/**/templates")
+    |> Enum.map(fn(path) ->
+      %Template{
+        config_file_path: Path.join(path, "config.yaml"),
+        directory: path
+      }
+    end)
+  end
   end
 
 

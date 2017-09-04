@@ -25,7 +25,10 @@ defmodule Base16Builder.Template do
       rendered_filename = "base16-#{scheme.slug}#{v["extension"]}"
       rendered_dir = Path.join("out", v["output"])
 
-      rendered_template = Mustache.render(File.read(template_file), template_data)
+      {:ok, template_file_content} = File.read(template_file)
+
+      rendered_template = :bbmustache.render(template_file_content,
+                                             template_data)
 
       File.mkdir_p(rendered_dir)
 

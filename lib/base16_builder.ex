@@ -28,8 +28,6 @@ defmodule Base16Builder do
       end
     |> List.flatten
     |> Enum.map(&Task.await(&1))
-
-      IO.puts inspect(tasks)
   end
 
   def build(_repos_exist = false) do

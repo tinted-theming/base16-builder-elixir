@@ -6,10 +6,16 @@ defmodule Base16Builder do
   alias Base16Builder.Scheme
   alias Base16Builder.Template
 
+  @doc """
+  Updates base16 repositories by cloning or pulling.
+  """
   def update do
     Base16Builder.Repository.init
   end
 
+  @doc """
+  Builds base16 repos into ./out/ and calles update() if repos don't exist.
+  """
   def build do
     build(required_repos_exist?())
   end

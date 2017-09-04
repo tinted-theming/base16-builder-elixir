@@ -36,6 +36,7 @@ defmodule Base16Builder.Mixfile do
       {:yaml_elixir, "~> 1.3.0"},
       {:git_cli, "~> 0.2"},
       {:slugger, "~> 0.2"},
+      {:color_utils, "0.2.0"},
       {:exfmt, [github: "lpil/exfmt"]}
     ]
   end

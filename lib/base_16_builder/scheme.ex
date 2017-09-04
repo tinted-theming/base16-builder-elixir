@@ -25,7 +25,12 @@ defmodule Base16Builder.Scheme do
     base0F
   )
 
-  def from_file(file_path) do
+  def load_schemes do
+    Path.wildcard("schemes/**/*.yaml")
+    |> Enum.map(&from_file(&1))
+  end
+
+  defp from_file(file_path) do
     yaml = YamlElixir.read_from_file(file_path)
 
     %Scheme{

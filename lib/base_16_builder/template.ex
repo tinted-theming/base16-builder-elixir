@@ -38,10 +38,12 @@ defmodule Base16Builder.Template do
 
 
   defp build_template_data(scheme = %Scheme{}) do
+    # Using charlists for keys because we'll use an Erlang library for rendering
+    # Mustache templates.
     data = %{
-      "scheme-name" => scheme.name,
-      "scheme-author" => scheme.author,
-      "scheme-slug" => scheme.slug,
+      'scheme-name' => scheme.name,
+      'scheme-author' => scheme.author,
+      'scheme-slug' => scheme.slug,
     }
 
     for {base, value} <- scheme.bases do
@@ -53,15 +55,16 @@ defmodule Base16Builder.Template do
         |> ColorUtils.hex_to_rgb()
 
       %{
-        "#{base}-hex-r" => String.slice(value, 0, 2),
-        "#{base}-hex-g" => String.slice(value, 2, 2),
-        "#{base}-hex-b" => String.slice(value, 4, 2),
-        "#{base}-rgb-r" => rgb.red,
-        "#{base}-rgb-g" => rgb.green,
-        "#{base}-rgb-b" => rgb.blue,
-        "#{base}-dec-r" => rgb.red / num_colors,
-        "#{base}-dec-g" => rgb.green / num_colors,
-        "#{base}-dec-b" => rgb.blue / num_colors,
+        '#{base}-hex' => value,
+        '#{base}-hex-r' => String.slice(value, 0, 2),
+        '#{base}-hex-g' => String.slice(value, 2, 2),
+        '#{base}-hex-b' => String.slice(value, 4, 2),
+        '#{base}-rgb-r' => round(rgb.red),
+        '#{base}-rgb-g' => round(rgb.green),
+        '#{base}-rgb-b' => round(rgb.blue),
+        '#{base}-dec-r' => rgb.red / num_colors,
+        '#{base}-dec-g' => rgb.green / num_colors,
+        '#{base}-dec-b' => rgb.blue / num_colors,
       }
     end
     |> Enum.reduce(data, fn (map, accumulator) ->

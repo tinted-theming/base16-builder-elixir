@@ -20,7 +20,7 @@ defmodule Base16Builder do
     build(required_repos_exist?())
   end
 
-  def build(_repos_exist = true) do
+  defp build(_repos_exist = true) do
     schemes = Scheme.load_schemes
     templates = Template.load_templates
 
@@ -37,11 +37,11 @@ defmodule Base16Builder do
     IO.puts("Done.")
   end
 
-  def build(_repos_exist = false) do
     {:error, "Repos don't exist"}
+  defp build(_repos_exist = false) do
   end
 
-  def required_repos_exist? do
+  defp required_repos_exist? do
     File.exists?("./schemes/") && File.exists?("./templates/")
   end
 end

@@ -57,12 +57,14 @@ defmodule Base16Builder.Repository do
       true ->
         existing_repo = Git.new(repo_path)
 
+        IO.puts ("pulling #{repo_path}")
         case Git.pull(existing_repo) do
           {:ok, existing} -> existing
           {:error, _} -> nil
         end
 
       false ->
+        IO.puts ("cloning #{repo.url} into #{repo_path}")
         case Git.clone([repo.url, repo_path, "--depth", "1"]) do
           {:ok, cloned} -> cloned
           {:error, _} -> nil

@@ -18,16 +18,17 @@ defmodule Base16Builder do
     schemes = Scheme.load_schemes
     templates = Template.load_templates
 
-    tasks =
-      for scheme <- schemes do
-        for template <- templates do
-          Task.async(fn ->
-            Template.render(template, scheme)
-          end)
-        end
+    for scheme <- schemes do
+      for template <- templates do
+        Task.async(fn ->
+          Template.render(template, scheme)
+        end)
       end
+    end
     |> List.flatten
     |> Enum.map(&Task.await(&1))
+
+    IO.puts("Done.")
   end
 
   def build(_repos_exist = false) do

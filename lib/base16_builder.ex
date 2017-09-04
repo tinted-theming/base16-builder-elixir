@@ -37,8 +37,9 @@ defmodule Base16Builder do
     IO.puts("Done.")
   end
 
-    {:error, "Repos don't exist"}
   defp build(_repos_exist = false) do
+    update()
+    build()
   end
 
   defp required_repos_exist? do

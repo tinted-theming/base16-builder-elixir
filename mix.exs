@@ -7,7 +7,8 @@ defmodule Base16Builder.Mixfile do
      elixir: "~> 1.4",
      build_embedded: Mix.env == :prod,
      start_permanent: Mix.env == :prod,
-     deps: deps()]
+     deps: deps(),
+     escript: [main_module: Base16Builder.CLI]]
   end
 
   # Configuration for the OTP application

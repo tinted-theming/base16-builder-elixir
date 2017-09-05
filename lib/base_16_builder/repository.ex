@@ -22,7 +22,7 @@ defmodule Base16Builder.Repository do
   @doc """
   Attempts to pull or clone Base16 templates and schemes repositories.
   """
-  def init_sources_repos do
+  defp init_sources_repos do
      [
        init_sources_repo("templates"),
        init_sources_repo("schemes")
@@ -33,7 +33,7 @@ defmodule Base16Builder.Repository do
   Attempts to pull or clone every template repo listed in the templates
   YAML file.
   """
-  def init_templates do
+  defp init_templates do
     repos_from_yaml_list("sources/templates/list.yaml",
                          "templates")
   end
@@ -42,7 +42,7 @@ defmodule Base16Builder.Repository do
   Attempts to pull or clone every scheme repo listed in the schemes
   YAML file.
   """
-  def init_schemes do
+  defp init_schemes do
     repos_from_yaml_list("sources/schemes/list.yaml",
                          "schemes")
   end

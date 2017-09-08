@@ -1,6 +1,6 @@
 %{"bbmustache": {:hex, :bbmustache, "1.5.0", "8cfde0602e90a4057e161bf5288ade854b4e511e2e8924966a8438730e958381", [:rebar3], [], "hexpm"},
   "color_utils": {:hex, :color_utils, "0.2.0", "bbcf48e74e1da14bfc7b513a44fe518b5a7062d29e1ed3fd7cf0704e2f422a2f", [:mix], [], "hexpm"},
-  "exfmt": {:git, "https://github.com/lpil/exfmt.git", "c4b6abe01b8579e07480c32784c12ecf26f3e746", []},
+  "exfmt": {:git, "https://github.com/lpil/exfmt.git", "6eca641e86a3ac98b5efec2b48fd7a12becceebb", [tag: "v0.4.0"]},
   "git_cli": {:hex, :git_cli, "0.2.4", "43f58045f5d168fa2cff8d2e3822b8c43f294b4b832a419ed8cc01337f1c5b3d", [:mix], [], "hexpm"},
   "slugger": {:hex, :slugger, "0.2.0", "7c609e6eee6dbb44e7b0db07982932356cab476f00fc8d73320cdc50d7efa18e", [:mix], [], "hexpm"},
   "yamerl": {:hex, :yamerl, "0.5.0", "6ec55a5d830f6f0d65a4030f5c5db24b0e72b813dfbde32fea44b4951ed9417c", [:rebar3], [], "hexpm"},

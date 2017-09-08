@@ -39,7 +39,7 @@ defmodule Base16Builder.Mixfile do
       {:slugger, "~> 0.2"},
       {:color_utils, "0.2.0"},
       {:bbmustache, "~> 1.5"},
-      {:exfmt, [github: "lpil/exfmt"]}
+      {:exfmt, [github: "lpil/exfmt", tag: "v0.4.0"]}
     ]
   end
 end

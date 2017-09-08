@@ -1,9 +1,9 @@
 #
 # Project-speciifc
 #
-sources
-templates
-schemes
+/sources
+/templates
+/schemes
 
 #
 # Elixir-specific

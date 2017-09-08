@@ -34,7 +34,7 @@ defmodule Base16Builder.Scheme do
     |> Enum.map(&from_file(&1))
   end
 
-  defp from_file(file_path) do
+  def from_file(file_path) do
     yaml = YamlElixir.read_from_file(file_path)
 
     %Scheme{

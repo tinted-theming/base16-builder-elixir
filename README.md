@@ -1,4 +1,6 @@
 # base16-builder-elixir
+[![CircleCI](https://circleci.com/gh/obahareth/base16-builder-elixir.svg?style=svg)](https://circleci.com/gh/obahareth/base16-builder-elixir)
+
 This is a base16 builder written in Elixir as defined by the [base16 builder guidelines](https://github.com/chriskempson/base16/blob/39d01a0248c7b28863ebafca66d7e1f5ca867b13/builder.md) version 0.9.0
 
 

@@ -1,10 +1,7 @@
 defmodule Base16Builder.Scheme do
   alias Base16Builder.Scheme
 
-  defstruct name: "",
-            slug: "",
-            author: "",
-            bases: %{}
+  defstruct name: "", slug: "", author: "", bases: %{}
 
   @bases ~w(
     base00
@@ -40,8 +37,8 @@ defmodule Base16Builder.Scheme do
     %Scheme{
       name: yaml["scheme"],
       author: yaml["author"],
-      slug: Path.basename(file_path, "yaml") |> Slugger.slugify_downcase,
-      bases: Map.new(@bases, fn(base) -> {base, yaml[base]} end)
+      slug: Path.basename(file_path, "yaml") |> Slugger.slugify_downcase(),
+      bases: Map.new(@bases, fn base -> {base, yaml[base]} end)
     }
   end
 end

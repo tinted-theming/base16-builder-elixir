@@ -18,15 +18,15 @@ defmodule Base16Builder.CLI do
 
   defp process(command) do
     case command do
-      "update" -> Base16Builder.update
+      "update" -> Base16Builder.update()
       "help" -> print_help_message()
-      "build" -> Base16Builder.build
-      _ -> Base16Builder.build
+      "build" -> Base16Builder.build()
+      _ -> Base16Builder.build()
     end
   end
 
   defp print_help_message do
-    IO.puts """
+    IO.puts("""
     #{@name}
 
     #{@description}
@@ -36,6 +36,6 @@ defmodule Base16Builder.CLI do
     base16_builder build \t# Builds Base16 themes, runs update if required repositories don't exist.
     base16_builder update \t# Re-acquires git repositories or creates them if they don't exist.
     base16_builder help \t# Prints this help message.
-    """
+    """)
   end
 end

@@ -2,13 +2,15 @@ defmodule Base16Builder.Mixfile do
   use Mix.Project
 
   def project do
-    [app: :base16_builder,
-     version: "0.1.0",
-     elixir: "~> 1.4",
-     build_embedded: Mix.env == :prod,
-     start_permanent: Mix.env == :prod,
-     deps: deps(),
-     escript: [main_module: Base16Builder.CLI]]
+    [
+      app: :base16_builder,
+      version: "0.1.0",
+      elixir: "~> 1.4",
+      build_embedded: Mix.env() == :prod,
+      start_permanent: Mix.env() == :prod,
+      deps: deps(),
+      escript: [main_module: Base16Builder.CLI]
+    ]
   end
 
   # Configuration for the OTP application
@@ -16,9 +18,10 @@ defmodule Base16Builder.Mixfile do
   # Type "mix help compile.app" for more information
   def application do
     # Specify extra applications you'll use from Erlang/Elixir
-    [extra_applications: [
-      :logger,
-      :yaml_elixir
+    [
+      extra_applications: [
+        :logger,
+        :yaml_elixir
       ]
     ]
   end

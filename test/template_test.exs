@@ -9,6 +9,7 @@ defmodule TemplateTest do
     scheme = Scheme.from_file(scheme_path)
 
     template_path = "test/fixtures/templates"
+
     template = %Template{
       config_file_path: Path.join(template_path, "config.yaml"),
       directory: "test/fixtures/templates"

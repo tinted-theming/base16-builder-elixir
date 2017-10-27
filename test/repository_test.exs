@@ -9,7 +9,7 @@ defmodule RepositoryTest do
     File.rm("schemes")
     File.rm("templates")
 
-    Repository.init
+    Repository.init()
 
     assert File.exists?("sources")
     assert File.exists?("schemes")

@@ -2,8 +2,7 @@ defmodule Base16Builder.Template do
   alias Base16Builder.Template
   alias Base16Builder.Scheme
 
-  defstruct config_file_path: "",
-            directory: ""
+  defstruct config_file_path: "", directory: ""
 
   @doc """
   Returns a list of template structs obtained by looking at
@@ -11,12 +10,12 @@ defmodule Base16Builder.Template do
   """
   def load_templates do
     Path.wildcard("templates/**/templates")
-    |> Enum.map(fn(path) ->
-      %Template{
-        config_file_path: Path.join(path, "config.yaml"),
-        directory: path
-      }
-    end)
+    |> Enum.map(fn path ->
+         %Template{
+           config_file_path: Path.join(path, "config.yaml"),
+           directory: path
+         }
+       end)
   end
 
   @doc """
@@ -36,18 +35,16 @@ defmodule Base16Builder.Template do
 
       {:ok, template_file_content} = File.read(template_file)
 
-      rendered_template = :bbmustache.render(template_file_content,
-                                             template_data)
+      rendered_template = :bbmustache.render(template_file_content, template_data)
 
       File.mkdir_p(rendered_dir)
 
       rendered_file = Path.join(rendered_dir, rendered_filename)
 
-      IO.puts "building #{rendered_file}"
+      IO.puts("building #{rendered_file}")
       File.write(rendered_file, rendered_template)
     end
   end
-
 
   defp build_template_data(scheme = %Scheme{}) do
     # Using charlists for keys because we'll use an Erlang library for rendering
@@ -55,7 +52,7 @@ defmodule Base16Builder.Template do
     data = %{
       'scheme-name' => scheme.name,
       'scheme-author' => scheme.author,
-      'scheme-slug' => scheme.slug,
+      'scheme-slug' => scheme.slug
     }
 
     for {base, value} <- scheme.bases do
@@ -76,10 +73,10 @@ defmodule Base16Builder.Template do
         '#{base}-rgb-b' => round(rgb.blue),
         '#{base}-dec-r' => rgb.red / num_colors,
         '#{base}-dec-g' => rgb.green / num_colors,
-        '#{base}-dec-b' => rgb.blue / num_colors,
+        '#{base}-dec-b' => rgb.blue / num_colors
       }
     end
-    |> Enum.reduce(data, fn (map, accumulator) ->
+    |> Enum.reduce(data, fn map, accumulator ->
          Map.merge(accumulator, map)
        end)
   end

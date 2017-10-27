@@ -10,7 +10,7 @@ defmodule Base16Builder do
   Updates base16 repositories by cloning or pulling.
   """
   def update do
-    Base16Builder.Repository.init
+    Base16Builder.Repository.init()
   end
 
   @doc """
@@ -21,8 +21,8 @@ defmodule Base16Builder do
   end
 
   defp build(_repos_exist = true) do
-    schemes = Scheme.load_schemes
-    templates = Template.load_templates
+    schemes = Scheme.load_schemes()
+    templates = Template.load_templates()
 
     for scheme <- schemes do
       for template <- templates do
@@ -31,7 +31,7 @@ defmodule Base16Builder do
         end)
       end
     end
-    |> List.flatten
+    |> List.flatten()
     |> Enum.map(&Task.await(&1))
 
     IO.puts("Done.")

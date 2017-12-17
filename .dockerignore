@@ -1,0 +1,8 @@
+.git
+_build
+.circleci
+deps
+out
+schemes
+sources
+templates

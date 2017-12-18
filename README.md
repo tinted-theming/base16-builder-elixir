@@ -5,7 +5,7 @@ This is a base16 builder written in Elixir as defined by the [base16 builder gui
 
 
 ## Usage Requirements
-* [Erlang](http://erlang.org).
+Either [Erlang](http://erlang.org) or [Docker](https://docker.com).
 
 ## Development Requirements
 * [Elixir](https://elixir-lang.org) 1.5.0+.
@@ -17,6 +17,19 @@ mix deps.get
 ```
 
 ## Usage
+
+### Docker
+
+```bash
+docker run -v $(pwd)/out:/out obahareth/base16-builder-elixir
+```
+
+You'll find the files in `./out` after the builder completes the building process. 
+
+_Note: Building through Docker is somewhat slow at the moment, this should be looked at._
+
+### With Erlang Installed
+
 ```bash
 base16_builder
 

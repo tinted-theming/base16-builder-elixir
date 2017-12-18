@@ -6,7 +6,7 @@ defmodule Base16Builder do
   alias Base16Builder.Scheme
   alias Base16Builder.Template
 
-  @timeout 20000
+  @timeout 60000
 
   @doc """
   Updates base16 repositories by cloning or pulling.

@@ -112,7 +112,7 @@ defmodule Base16Builder.Repository do
             })
           end)
         end)
-        |> Enum.map(fn task -> Task.await(task) end)
+        |> Enum.map(fn task -> Task.await(task, Base16Builder.task_timeout()) end)
 
       false ->
         {:error, :enoent}

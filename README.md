@@ -26,7 +26,7 @@ docker run -v $(pwd)/out:/out obahareth/base16-builder-elixir
 
 You'll find the files in `./out` after the builder completes the building process. 
 
-_Note: Building through Docker is somewhat slow at the moment, this should be looked at._
+_Note: Building through Docker is [somewhat slow](https://github.com/obahareth/base16-builder-elixir/issues/2) at the moment, this should be looked at._
 
 ### With Erlang Installed
 

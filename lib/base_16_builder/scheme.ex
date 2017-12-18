@@ -27,7 +27,7 @@ defmodule Base16Builder.Scheme do
   "schemes/**/*.yaml"
   """
   def load_schemes do
-    Path.wildcard("schemes/**/*.yaml")
+    Path.wildcard("schemes/*/*.yaml")
     |> Enum.map(&from_file(&1))
   end
 

@@ -6,6 +6,8 @@ defmodule Base16Builder do
   alias Base16Builder.Scheme
   alias Base16Builder.Template
 
+  @timeout 20000
+
   @doc """
   Updates base16 repositories by cloning or pulling.
   """
@@ -20,6 +22,16 @@ defmodule Base16Builder do
     build(required_repos_exist?())
   end
 
+  @doc """
+  Returns the integer value of the environment variable
+  BASE16_BUILDER_TASK_TIMEOUT or @timeout.
+  """
+  def task_timeout do
+    env_timeout = System.get_env("BASE16_BUILDER_TASK_TIMEOUT")
+
+    if env_timeout, do: String.to_integer(env_timeout), else: @timeout
+  end
+
   defp build(_repos_exist = true) do
     schemes = Scheme.load_schemes()
     templates = Template.load_templates()
@@ -32,7 +44,7 @@ defmodule Base16Builder do
       end
     end
     |> List.flatten()
-    |> Enum.map(&Task.await(&1))
+    |> Enum.map(&Task.await(&1, task_timeout()))
 
     IO.puts("Done.")
   end

@@ -8,7 +8,7 @@ defmodule Base16BuilderTest do
 
   test "task_timeout should return @timeout if no env var is set" do
     System.delete_env("BASE16_BUILDER_TASK_TIMEOUT")
-    assert(Base16Builder.task_timeout == 20000)
+    assert(Base16Builder.task_timeout == 60000)
   end
 
   test "task_timeout should return integer value of env var if it's set" do

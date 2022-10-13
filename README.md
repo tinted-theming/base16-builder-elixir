@@ -1,7 +1,7 @@
 # base16-builder-elixir
 [![CircleCI](https://circleci.com/gh/obahareth/base16-builder-elixir.svg?style=svg)](https://circleci.com/gh/obahareth/base16-builder-elixir)
 
-This is a base16 builder written in Elixir as defined by the [base16 builder guidelines](https://github.com/chriskempson/base16/blob/39d01a0248c7b28863ebafca66d7e1f5ca867b13/builder.md) version 0.9.0
+This is a base16 builder written in Elixir as defined by the [base16 builder guidelines](https://github.com/tinted-theming/home/blob/cc34890294402b9052b528e107f5b6b5ae15fdff/builder.md) version 0.9.0
 
 
 ## Usage Requirements
@@ -35,7 +35,7 @@ base16_builder
 
 Acquires git repositories containing templates and schemes to build base16
 themes as defined in the builder guidelines:
-https://github.com/chriskempson/base16/blob/master/builder.md
+https://github.com/tinted-theming/home/blob/main/builder.md
 
 
 Usage:
